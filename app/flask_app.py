@@ -26,14 +26,5 @@ def transcribe():
     return jsonify(response_dict)
 
 
-@app.route('/uploadfile', methods=['GET', 'POST', 'PUT'])
-def uploadfile():
-    if request.method == 'PUT':
-        f = request.files['file']
-        filePath = "./somedir/"+secure_filename(f.filename)
-        f.save(filePath)
-        return "success"
-
-
 if __name__ == "__main__":
     app.run(debug=True)
