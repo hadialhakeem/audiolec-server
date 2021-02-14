@@ -53,12 +53,14 @@ def transcribe_gcs(gcs_uri):
         print("Confidence: {}".format(result.alternatives[0].confidence))
 
     print("Full transcript: ", full_transcript)
+    return full_transcript
 
 
-# test_file = 'test-lec.wav'
-# dst_name = generate_name(test_file)
-# print(dst_name)
-# upload_blob(STORAGE_BUCKET, test_file, dst_name)
+def transcribe_file(file_name):
+    dst_name = generate_name(file_name)
+    upload_blob(STORAGE_BUCKET, file_name, dst_name)
 
-uri = get_gsc_uri('test-lec-lfncjada.wav')
-transcribe_gcs(uri)
+    uri = get_gsc_uri(dst_name)
+    transcript = transcribe_gcs(uri)
+    return transcript
+
