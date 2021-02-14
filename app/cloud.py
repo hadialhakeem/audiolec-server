@@ -56,9 +56,13 @@ def transcribe_gcs(gcs_uri):
     return full_transcript
 
 
-def transcribe_file(file_name):
+def transcribe_file(file, file_name):
+    # Write file
+
     dst_name = generate_name(file_name)
     upload_blob(STORAGE_BUCKET, file_name, dst_name)
+
+    # Delete file
 
     uri = get_gsc_uri(dst_name)
     transcript = transcribe_gcs(uri)

@@ -15,9 +15,13 @@ def hello():
 @app.route("/transcribe", methods=['POST'])
 def transcribe():
     data = request.get_json(force=True)
-    file_name = data['file']
+    file = data['file']
+    file_name = data['file_name']
 
-    transcript = transcribe_file(file_name)
+    if ".wav" not in file_name:
+        return "file type must be .wav", 400
+
+    transcript = transcribe_file(file, file_name)
 
     response_dict = {
         'transcript': transcript
