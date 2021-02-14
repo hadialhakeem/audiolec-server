@@ -18,4 +18,7 @@ def generate_name(file_name):
     return new_file_name
 
 
+def get_gsci_uri(file_name, bucket_name):
+    return "gs://" + bucket_name + "/" + file_name
+
 

@@ -1,6 +1,6 @@
 from google.cloud import storage, speech
 from app.utils import generate_name
-
+from app.constants import STORAGE_BUCKET
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
@@ -60,5 +60,5 @@ test_file = 'test-lec.mp3'
 
 test_file_gcs_uri = generate_name(test_file)
 
-upload_blob('audio-storage-111', test_file, test_file_gcs_uri)
-
+upload_blob(STORAGE_BUCKET, test_file, test_file_gcs_uri)
+transcribe_gcs(test_file_gcs_uri, STORAGE_BUCKET)
