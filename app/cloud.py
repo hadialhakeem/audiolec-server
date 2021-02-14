@@ -1,4 +1,5 @@
 from google.cloud import speech, storage
+from .utils import generate_name
 
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
@@ -53,3 +54,8 @@ def transcribe_gcs(gcs_uri):
 
     print(full_transcript)
 # [END speech_transcribe_async_gcs]
+
+
+test_file = 'test-lec.mp3'
+
+upload_blob('audio-storage-111', test_file, generate_name(test_file))
