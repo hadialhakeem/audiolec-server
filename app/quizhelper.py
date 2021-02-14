@@ -20,10 +20,16 @@ def transcribe_gcs(gcs_uri):
 
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
+    full_transcript = ''
     for result in response.results:
+
         # The first alternative is the most likely one for this portion.
-        print(u"Transcript: {}".format(result.alternatives[0].transcript))
-        print("Confidence: {}".format(result.alternatives[0].confidence))
+
+        full_transcript += result.alternatives[0].transcript
+
+        #print(u"Transcript: {}".format(result.alternatives[0].transcript))
+        #print("Confidence: {}".format(result.alternatives[0].confidence))
 
 
+    print(full_transcript)
 # [END speech_transcribe_async_gcs]
