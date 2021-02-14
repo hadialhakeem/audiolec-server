@@ -1,6 +1,7 @@
 from google.cloud import storage, speech
-from app.utils import generate_name
+from app.utils import generate_name, get_gsc_uri
 from app.constants import STORAGE_BUCKET
+
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
@@ -29,7 +30,7 @@ def transcribe_gcs(gcs_uri):
 
     audio = speech.RecognitionAudio(uri=gcs_uri)
     config = speech.RecognitionConfig(
-        encoding=speech.RecognitionConfig.AudioEncoding.MP3,
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=16000,
         language_code="en-US",
     )
@@ -56,9 +57,13 @@ def transcribe_gcs(gcs_uri):
 # [END speech_transcribe_async_gcs]
 
 
-test_file = 'test-lec.mp3'
+test_file = 'test-lec.wav'
 
-test_file_gcs_uri = generate_name(test_file)
+dst_name = generate_name(test_file)
+print(dst_name)
+#uri = get_gsc_uri('test
+# -lec.mp3', STORAGE_BUCKET)
 
-upload_blob(STORAGE_BUCKET, test_file, test_file_gcs_uri)
-transcribe_gcs(test_file_gcs_uri, STORAGE_BUCKET)
+upload_blob(STORAGE_BUCKET, test_file, dst_name)
+
+#transcribe_gcs(uri)
