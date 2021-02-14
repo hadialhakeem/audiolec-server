@@ -1,5 +1,6 @@
 import random
 import string
+from app.constants import STORAGE_BUCKET
 
 
 def random_id(length):
@@ -18,7 +19,7 @@ def generate_name(file_name):
     return new_file_name
 
 
-def get_gsc_uri(file_name, bucket_name):
-    return "gs://" + bucket_name + "/" + file_name
+def get_gsc_uri(file_name):
+    return "gs://" + STORAGE_BUCKET + "/" + file_name
 
 

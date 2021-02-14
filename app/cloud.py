@@ -31,8 +31,8 @@ def transcribe_gcs(gcs_uri):
     audio = speech.RecognitionAudio(uri=gcs_uri)
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
         language_code="en-US",
+        enable_automatic_punctuation=True,
     )
 
     operation = client.long_running_recognize(config=config, audio=audio)
@@ -49,21 +49,16 @@ def transcribe_gcs(gcs_uri):
 
         full_transcript += result.alternatives[0].transcript
 
-        #print("Transcript: {}".format(result.alternatives[0].transcript))
-        #print("Confidence: {}".format(result.alternatives[0].confidence))
+        print("Transcript: {}".format(result.alternatives[0].transcript))
+        print("Confidence: {}".format(result.alternatives[0].confidence))
+
+    print("Full transcript: ", full_transcript)
 
 
-    print(full_transcript)
-# [END speech_transcribe_async_gcs]
+# test_file = 'test-lec.wav'
+# dst_name = generate_name(test_file)
+# print(dst_name)
+# upload_blob(STORAGE_BUCKET, test_file, dst_name)
 
-
-test_file = 'test-lec.wav'
-
-dst_name = generate_name(test_file)
-print(dst_name)
-#uri = get_gsc_uri('test
-# -lec.mp3', STORAGE_BUCKET)
-
-upload_blob(STORAGE_BUCKET, test_file, dst_name)
-
-#transcribe_gcs(uri)
+uri = get_gsc_uri('test-lec-lfncjada.wav')
+transcribe_gcs(uri)
